@@ -3,6 +3,9 @@ import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
+class2label = {"good": 0, "crack": 1, "faulty_imprint": 2, "poke": 2, "scratch": 3, "squeeze": 4}
+
+
 if __name__ == "__main__":
     '''
     Script to create the csv files to train and test the model
@@ -35,16 +38,11 @@ if __name__ == "__main__":
                                 if sub_dir == "train":
                                     df_train = df_train.append({'CLASS': classe,
                                                                       'PATH': relative_path,
-                                                                      'LABEL': 0}, ignore_index=True)
+                                                                      'LABEL': class2label[classe]}, ignore_index=True)
                                 else:
-                                    if classe == "good":
-                                        df_test = df_test.append({'CLASS': classe,
-                                                                        'PATH': relative_path,
-                                                                        'LABEL': 0}, ignore_index=True)
-                                    else:
-                                        df_test = df_test.append({'CLASS': classe,
-                                                                        'PATH': relative_path,
-                                                                        'LABEL': 1}, ignore_index=True)
+                                    df_test = df_test.append({'CLASS': classe,
+                                                                    'PATH': relative_path,
+                                                                    'LABEL': class2label[classe]}, ignore_index=True)
 
 
     df_train, df_val = train_test_split(df_train, test_size=0.2, random_state=42)

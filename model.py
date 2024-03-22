@@ -132,7 +132,7 @@ class Autoencoder(nn.Module):
         elif name_pretrained_model == 'efficientnet_b0':
             base_model = models.efficientnet_b0(weights=EfficientNet_B0_Weights.DEFAULT)
             base_model.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
-            base_model.fc = nn.Flatten()  # 1280
+            base_model.classifier = nn.Flatten()  # 1280
             if self.freeze_layers:
                 print("Freeze layers of pretrained model")
                 self.freeze_layers_base_model(base_model)
@@ -140,7 +140,7 @@ class Autoencoder(nn.Module):
         elif name_pretrained_model == 'efficientnet_b1':
             base_model = models.efficientnet_b1(weights=EfficientNet_B1_Weights.DEFAULT)
             base_model.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
-            base_model.fc = nn.Flatten()  # 1280
+            base_model.classifier = nn.Flatten()  # 1280
             if self.freeze_layers:
                 print("Freeze layers of pretrained model")
                 self.freeze_layers_base_model(base_model)
@@ -148,7 +148,7 @@ class Autoencoder(nn.Module):
         elif name_pretrained_model == 'efficientnet_b2':
             base_model = models.efficientnet_b2(weights=EfficientNet_B2_Weights.DEFAULT)
             base_model.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
-            base_model.fc = nn.Flatten()  # 1408
+            base_model.classifier = nn.Flatten()  # 1408
             if self.freeze_layers:
                 print("Freeze layers of pretrained model")
                 self.freeze_layers_base_model(base_model)
@@ -156,7 +156,7 @@ class Autoencoder(nn.Module):
         elif name_pretrained_model == 'efficientnet_b3':
             base_model = models.efficientnet_b3(weights=EfficientNet_B3_Weights.DEFAULT)
             base_model.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
-            base_model.fc = nn.Flatten()  # 1536
+            base_model.classifier = nn.Flatten()  # 1536
             if self.freeze_layers:
                 print("Freeze layers of pretrained model")
                 self.freeze_layers_base_model(base_model)
@@ -164,7 +164,7 @@ class Autoencoder(nn.Module):
         elif name_pretrained_model == 'efficientnet_b4':
             base_model = models.efficientnet_b4(weights=EfficientNet_B4_Weights.DEFAULT)
             base_model.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
-            base_model.fc = nn.Flatten()  # 1792
+            base_model.classifier = nn.Flatten()  # 1792
             if self.freeze_layers:
                 print("Freeze layers of pretrained model")
                 self.freeze_layers_base_model(base_model)
@@ -172,7 +172,7 @@ class Autoencoder(nn.Module):
         elif name_pretrained_model == 'efficientnet_b5':
             base_model = models.efficientnet_b5(weights=EfficientNet_B5_Weights.DEFAULT)
             base_model.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
-            base_model.fc = nn.Flatten()  # 2048
+            base_model.classifier = nn.Flatten()  # 2048
             if self.freeze_layers:
                 print("Freeze layers of pretrained model")
                 self.freeze_layers_base_model(base_model)
@@ -180,7 +180,7 @@ class Autoencoder(nn.Module):
         elif name_pretrained_model == 'efficientnet_b6':
             base_model = models.efficientnet_b6(weights=EfficientNet_B6_Weights.DEFAULT)
             base_model.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
-            base_model.fc = nn.Flatten()  # 2304
+            base_model.classifier = nn.Flatten()  # 2304
             if self.freeze_layers:
                 print("Freeze layers of pretrained model")
                 self.freeze_layers_base_model(base_model)
@@ -188,7 +188,7 @@ class Autoencoder(nn.Module):
         elif name_pretrained_model == 'efficientnet_b7':
             base_model = models.efficientnet_b7(weights=EfficientNet_B7_Weights.DEFAULT)
             base_model.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
-            base_model.fc = nn.Flatten()  # 2560
+            base_model.classifier = nn.Flatten()  # 2560
             if self.freeze_layers:
                 print("Freeze layers of pretrained model")
                 self.freeze_layers_base_model(base_model)
@@ -196,7 +196,7 @@ class Autoencoder(nn.Module):
         elif name_pretrained_model == 'efficientnet_v2_m':
             base_model = models.efficientnet_v2_m(weights=EfficientNet_V2_M_Weights.DEFAULT)
             base_model.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
-            base_model.fc = nn.Flatten()  # 1280
+            base_model.classifier = nn.Flatten()  # 1280
             if self.freeze_layers:
                 print("Freeze layers of pretrained model")
                 self.freeze_layers_base_model(base_model)
@@ -204,7 +204,7 @@ class Autoencoder(nn.Module):
         elif name_pretrained_model == 'efficientnet_v2_s':
             base_model = models.efficientnet_v2_s(weights=EfficientNet_V2_S_Weights.DEFAULT)
             base_model.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
-            base_model.fc = nn.Flatten()  # 1280
+            base_model.classifier = nn.Flatten()  # 1280
             if self.freeze_layers:
                 print("Freeze layers of pretrained model")
                 self.freeze_layers_base_model(base_model)
@@ -212,7 +212,7 @@ class Autoencoder(nn.Module):
         elif name_pretrained_model == 'efficientnet_v2_l':
             base_model = models.efficientnet_v2_l(weights=EfficientNet_V2_L_Weights.DEFAULT)
             base_model.avgpool = nn.AdaptiveAvgPool2d(output_size=(1, 1))
-            base_model.fc = nn.Flatten()  # 1280
+            base_model.classifier = nn.Flatten()  # 1280
             if self.freeze_layers:
                 print("Freeze layers of pretrained model")
                 self.freeze_layers_base_model(base_model)

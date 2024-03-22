@@ -447,7 +447,7 @@ def run_train_test_model(cfg, do_train, do_test):
 
         # go through the lines of the dataset
         class2label = {}
-        for index, row in df_dataset_train.iterrows():
+        for index, row in df_dataset_test.iterrows():
             class_name = row["CLASS"]
             label = row["LABEL"]
 

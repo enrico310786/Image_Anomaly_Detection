@@ -37,22 +37,22 @@ def val_loss(inputs, model, criterion):
 def calculate_errors(device,
                      model,
                      dataloader,
-                     df_distribution):
+                     df_distribution,
+                     label2class):
     '''
     Calculate the error reconstruction of the embedding vectors
     '''
 
-    class_names = []
-    recording_cameras = []
+    labels_list = []
     reconstructed_embeddings_array = None
     embeddings_array = None
     model = model.eval()
 
     with torch.no_grad():
         # cycle on all batches
-        for inputs, labels, classes, cameras in dataloader:
+        for inputs, labels in dataloader:
             inputs = inputs.to(device)
-            classes = list(classes)
+            labels = list(labels)
             embeddings, reconstructed_embeddings = model(inputs)
 
             if embeddings_array is None:
@@ -65,24 +65,21 @@ def calculate_errors(device,
             else:
                 reconstructed_embeddings_array = np.vstack((reconstructed_embeddings_array, reconstructed_embeddings.detach().cpu().numpy()))
 
-            class_names.extend(classes)
-            recording_cameras.extend(cameras)
+            labels_list.extend(labels)
 
         # transform to numpy array
-        class_names = np.array(class_names)
-        recording_cameras = np.array(recording_cameras)
+        labels_list = np.array(labels_list)
 
-        print('len(class_names): ', len(class_names))
-        print('len(recording_cameras): ', len(recording_cameras))
+        print('len(labels_list): ', len(labels_list))
         print('reconstructed_embeddings_array.shape: ', reconstructed_embeddings_array.shape)
         print('embeddings_array.shape: ', embeddings_array.shape)
 
         # iter over the array to find error and distances from the correspondig centroid. The centroid is found using the label of the class
-        for classe, emb, rec_emb in zip(class_names, embeddings_array, reconstructed_embeddings_array):
+        for label, emb, rec_emb in zip(labels_list, embeddings_array, reconstructed_embeddings_array):
             #error = (np.square(emb - rec_emb)).mean()
             error = (np.square(emb - rec_emb)).sum() # è la stessa cosa di criterion = nn.MSELoss(reduction='sum'). Fa la somma dei quadrati delle differenze
 
-            df_distribution = df_distribution.append({'ENG_CLASS': classe,
+            df_distribution = df_distribution.append({'CLASS': label2class[label],
                                                       'RECONSTRUCTION_ERROR': error}, ignore_index=True)
 
         return df_distribution
@@ -472,7 +469,8 @@ def run_train_test_model(cfg, do_train, do_test):
         df_distribution = calculate_errors(device=device,
                                            model=model,
                                            dataloader=test_loader,
-                                           df_distribution=df_distribution)
+                                           df_distribution=df_distribution,
+                                           label2class=label2class)
 
         torch.cuda.empty_cache()
         gc.collect()

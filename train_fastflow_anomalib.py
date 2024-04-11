@@ -5,50 +5,57 @@ from anomalib import TaskType
 from anomalib.data.image.folder import Folder
 from anomalib.loggers import AnomalibWandbLogger
 from anomalib.engine import Engine
-
+import argparse
 # follow the notebook https://github.com/openvinotoolkit/anomalib/blob/main/notebooks/200_models/201_fastflow.ipynb
 
-# set the dataset root for a particular category
-dataset_root = "/home/enrico/Dataset/images_anomaly/dataset_lego/images_lego/one_up"
+if __name__ == '__main__':
 
-datamodule = Folder(
-    name="one_up",
-    root=dataset_root,
-    normal_dir="one_up",
-    abnormal_dir="abnormal",
-    #transform=transform,
-    task=TaskType.CLASSIFICATION,
-    seed=42,
-    val_split_mode=ValSplitMode.FROM_TEST, # default value
-    val_split_ratio=0.5, # default value
-    image_size=(256,256)
-)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--dataset_root', type=str, )
+    parser.add_argument('--result_directory', type=str)
+    opt = parser.parse_args()
 
-model = Fastflow(backbone="resnet18", flow_steps=8)
+    dataset_root = opt.dataset_root
+    result_directory = opt.result_directory
 
-callbacks = [
-    ModelCheckpoint(
-        dirpath="results/fastflow/",
-        mode="max",
-        monitor="image_AUROC",
-    ),
-    EarlyStopping(
-        monitor="image_AUROC",
-        mode="max",
-        patience=3,
-    ),
-]
+    datamodule = Folder(
+        name="one_up",
+        root=dataset_root,
+        normal_dir="one_up",
+        abnormal_dir="abnormal",
+        #transform=transform,
+        task=TaskType.CLASSIFICATION,
+        seed=42,
+        val_split_mode=ValSplitMode.FROM_TEST, # default value
+        val_split_ratio=0.5, # default value
+        image_size=(256,256)
+    )
 
+    model = Fastflow(backbone="resnet18", flow_steps=8)
 
-wandb_logger = AnomalibWandbLogger(project="image_anomaly_detection", name="fastflow_1")
-engine = Engine(
-    callbacks=callbacks,
-    pixel_metrics="AUROC",
-    accelerator="auto",  # \<"cpu", "gpu", "tpu", "ipu", "hpu", "auto">,
-    devices=1,
-    logger=wandb_logger,
-)
+    callbacks = [
+        ModelCheckpoint(
+            dirpath=result_directory,
+            mode="max",
+            monitor="image_AUROC",
+        ),
+        EarlyStopping(
+            monitor="image_AUROC",
+            mode="max",
+            patience=3,
+        ),
+    ]
 
-engine.fit(datamodule=datamodule, model=model)
+    wandb_logger = AnomalibWandbLogger(project="image_anomaly_detection", name="fastflow_1")
 
-engine.test(datamodule=datamodule, model=model)
+    engine = Engine(
+        callbacks=callbacks,
+        pixel_metrics="AUROC",
+        accelerator="auto",  # \<"cpu", "gpu", "tpu", "ipu", "hpu", "auto">,
+        devices=1,
+        logger=wandb_logger,
+    )
+
+    engine.fit(datamodule=datamodule, model=model)
+
+    engine.test(datamodule=datamodule, model=model)

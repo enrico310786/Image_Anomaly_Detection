@@ -7,6 +7,8 @@ from anomalib.data.image.folder import Folder
 from anomalib.loggers import AnomalibWandbLogger
 from anomalib.engine import Engine
 import argparse
+import os
+
 # follow the notebook https://github.com/openvinotoolkit/anomalib/blob/main/notebooks/200_models/201_fastflow.ipynb
 
 '''
@@ -73,6 +75,6 @@ if __name__ == '__main__':
     #export in torch
     path_export_weights = engine.export(export_type=ExportType.TORCH,
                                         model=model,
-                                        export_root='weights')
+                                        export_root=os.path.join(result_directory, "weights"))
 
     print("path_export_weights: ", path_export_weights)

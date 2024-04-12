@@ -71,6 +71,8 @@ if __name__ == '__main__':
     engine.test(datamodule=datamodule, model=model)
 
     #export in torch
-    engine.export(export_type=ExportType.TORCH,
-                  model=model,
-                  export_root='weights')
+    path_export_weights = engine.export(export_type=ExportType.TORCH,
+                                        model=model,
+                                        export_root='weights')
+
+    print("path_export_weights: ", path_export_weights)

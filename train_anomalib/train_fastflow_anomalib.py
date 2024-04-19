@@ -13,6 +13,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset_root', type=str, )
     parser.add_argument('--result_directory', type=str)
+    parser.add_argument('--name_wandb_experiment', type=str)
     opt = parser.parse_args()
 
     dataset_root = opt.dataset_root

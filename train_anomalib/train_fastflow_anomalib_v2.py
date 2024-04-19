@@ -21,17 +21,19 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset_root', type=str, )
     parser.add_argument('--result_directory', type=str)
+    parser.add_argument('--name_normal_dir', type=str)
     parser.add_argument('--name_wandb_experiment', type=str)
     opt = parser.parse_args()
 
     dataset_root = opt.dataset_root
     result_directory = opt.result_directory
     name_wandb_experiment = opt.name_wandb_experiment
+    name_normal_dir = opt.name_normal_dir
 
     datamodule = Folder(
         name="one_up",
         root=dataset_root,
-        normal_dir="one_up",
+        normal_dir=name_normal_dir,
         abnormal_dir="abnormal",
         #transform=transform,
         task=TaskType.CLASSIFICATION,

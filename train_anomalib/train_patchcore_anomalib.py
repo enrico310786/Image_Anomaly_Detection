@@ -20,13 +20,13 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset_root', type=str, )
-    parser.add_argument('--result_directory', type=str)
+    #parser.add_argument('--result_directory', type=str)
     parser.add_argument('--name_normal_dir', type=str)
     parser.add_argument('--name_wandb_experiment', type=str)
     opt = parser.parse_args()
 
     dataset_root = opt.dataset_root
-    result_directory = opt.result_directory
+    #result_directory = opt.result_directory
     name_wandb_experiment = opt.name_wandb_experiment
     name_normal_dir = opt.name_normal_dir
 
@@ -45,17 +45,21 @@ if __name__ == '__main__':
 
     model = Patchcore()
 
+    '''
+    If all of every_n_epochs, every_n_train_steps and train_time_interval are None, 
+    we save a checkpoint at the end of every epoch (equivalent to every_n_epochs = 1).
+    '''
+
     callbacks = [
         ModelCheckpoint(
-            dirpath=result_directory,
+            #dirpath=result_directory,
             mode="max",
             monitor="image_AUROC",
-        ),
-        EarlyStopping(
-            monitor="image_AUROC",
-            mode="max",
-            patience=3,
-        ),
+            save_last=True,
+            verbose=True,
+            auto_insert_metric_name=True,
+            every_n_epochs=1,
+        )
     ]
 
     wandb_logger = AnomalibWandbLogger(project="image_anomaly_detection",
@@ -70,13 +74,15 @@ if __name__ == '__main__':
         task=TaskType.CLASSIFICATION,
     )
 
+    print("Fit...")
     engine.fit(datamodule=datamodule, model=model)
 
+    print("Test...")
     engine.test(datamodule=datamodule, model=model)
 
     #export in torch
+    print("Export weights...")
     path_export_weights = engine.export(export_type=ExportType.TORCH,
-                                        model=model,
-                                        export_root=os.path.join(result_directory, "weights"))
+                                        model=model)
 
     print("path_export_weights: ", path_export_weights)

@@ -26,7 +26,8 @@ def str2bool(v):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset_root', type=str, )
+    parser.add_argument('--dataset_root', type=str)
+    parser.add_argument('--name', type=str)
     parser.add_argument('--name_normal_dir', type=str)
     parser.add_argument("--data_augmentation", type=str2bool, nargs='?', const=True, default=False, help="Apply data augmentation during train")
     parser.add_argument('--name_wandb_experiment', type=str)
@@ -36,6 +37,7 @@ if __name__ == '__main__':
     name_wandb_experiment = opt.name_wandb_experiment
     name_normal_dir = opt.name_normal_dir
     data_augmentation = opt.data_augmentation
+    name = opt.name
 
     # Define a list of transformations you want to apply to your data
     transformations_list = [# geometric transformations
@@ -53,7 +55,7 @@ if __name__ == '__main__':
         transforms = v2.RandomApply(transformations_list, p=0.8)
 
     datamodule = Folder(
-        name="one_up",
+        name=name,
         root=dataset_root,
         normal_dir=name_normal_dir,
         abnormal_dir="abnormal",

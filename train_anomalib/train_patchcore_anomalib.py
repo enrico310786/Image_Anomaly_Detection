@@ -7,52 +7,67 @@ from anomalib.data.image.folder import Folder
 from anomalib.loggers import AnomalibWandbLogger
 from anomalib.engine import Engine
 import argparse
-import os
+from torchvision.transforms import v2
 
 # follow the notebook https://github.com/openvinotoolkit/anomalib/blob/main/notebooks/200_models/201_fastflow.ipynb
 
-'''
-Set task=TaskType.CLASSIFICATION in engine
-Set the export to torch for inference
-'''
+
+def str2bool(v):
+    if isinstance(v, bool):
+        return v
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
+
 
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset_root', type=str, )
-    #parser.add_argument('--result_directory', type=str)
     parser.add_argument('--name_normal_dir', type=str)
+    parser.add_argument("--data_augmentation", type=str2bool, nargs='?', const=True, default=False, help="Apply data augmentation during train")
     parser.add_argument('--name_wandb_experiment', type=str)
     opt = parser.parse_args()
 
     dataset_root = opt.dataset_root
-    #result_directory = opt.result_directory
     name_wandb_experiment = opt.name_wandb_experiment
     name_normal_dir = opt.name_normal_dir
+    data_augmentation = opt.data_augmentation
+
+    # Define a list of transformations you want to apply to your data
+    transformations_list = [# geometric transformations
+                            v2.RandomPerspective(distortion_scale=0.2, p=0.5),
+                            v2.RandomAffine(degrees=(0, 1), scale=(0.9, 1.2)),
+                            # pixel transformations
+                            v2.ColorJitter(brightness=(0.6, 1.6)),
+                            v2.ColorJitter(contrast=(0.6, 1.6)),
+                            v2.ColorJitter(saturation=(0.6, 1.6)),
+                            v2.GaussianBlur(kernel_size=(5, 5), sigma=(0.3, 0.3))
+                            ]
+
+    transforms = None
+    if data_augmentation:
+        transforms = v2.RandomApply(transformations_list, p=0.8)
 
     datamodule = Folder(
         name="one_up",
         root=dataset_root,
         normal_dir=name_normal_dir,
         abnormal_dir="abnormal",
-        #transform=transform,
         task=TaskType.CLASSIFICATION,
         seed=42,
         val_split_mode=ValSplitMode.FROM_TEST, # default value
         val_split_ratio=0.5, # default value
-        image_size=(256,256)
+        train_transform=transforms
     )
 
     model = Patchcore()
 
-    '''
-    If all of every_n_epochs, every_n_train_steps and train_time_interval are None, 
-    we save a checkpoint at the end of every epoch (equivalent to every_n_epochs = 1).
-    '''
-
     callbacks = [
         ModelCheckpoint(
-            #dirpath=result_directory,
             mode="max",
             monitor="image_AUROC",
             save_last=True,

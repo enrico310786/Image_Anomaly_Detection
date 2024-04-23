@@ -77,7 +77,7 @@ if __name__ == '__main__':
     pred_label_list = []
 
     # iter over the test dataset
-    for index, row in tqdm(test_dataset.iterrows(), desc="test dataset"):
+    for index, row in tqdm(test_dataset.iterrows(), total=test_dataset.shape[0], desc="test dataset"):
         image_path = row["image_path"]
         true_label = row["label_index"]
 

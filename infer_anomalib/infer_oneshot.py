@@ -39,6 +39,7 @@ if __name__ == '__main__':
     print("inferencer.metadata", inferencer.metadata)
     print("pred_score: {:.4f} - pred_label: {}".format(result.pred_score, result.pred_label))
 
+    # result.pred_score gives the score to be anomalous
     if result.pred_label == 0:
         normal_score = 1 - result.pred_score
         print("Normal - pred_score: {:.4f}".format(normal_score))
@@ -52,7 +53,7 @@ if __name__ == '__main__':
     # Create the bbox around the white contours
     for contour in contours:
         x, y, w, h = cv2.boundingRect(contour)
-        cv2.rectangle(image_bbox, (x, y), (x+w, y+h), (255, 0, 0), 10)
+        cv2.rectangle(image_bbox, (x, y), (x+w, y+h), (255, 0, 0), 2)
 
     # stack three time the mask to simulate the three colour channels
     mask = cv2.merge((result.pred_mask,result.pred_mask,result.pred_mask))

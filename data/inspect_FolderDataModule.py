@@ -77,6 +77,8 @@ img_test = to_pil_image(data_test["image"][0].clone())
 
 # from the datamodule extract the train, val and test Pandas dataset and collect all the info in a csv
 train_dataset = datamodule.train_data.samples
+print("train_dataset.head()")
+print(train_dataset[['label','label_index']].head())
 test_dataset = datamodule.test_data.samples
 val_dataset = datamodule.val_data.samples
 

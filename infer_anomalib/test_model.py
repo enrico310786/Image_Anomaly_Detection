@@ -21,6 +21,7 @@ from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
+from tqdm import tqdm
 
 
 class2label = {"NORMAL": 0, "ABNORMAL": 1}
@@ -47,7 +48,7 @@ if __name__ == '__main__':
 
     # load the model
     inferencer = TorchInferencer(path=path_torch_model,
-                                 device="cpu")
+                                 device="auto")
 
     # load the datamodule
     datamodule = Folder(
@@ -76,7 +77,7 @@ if __name__ == '__main__':
     pred_label_list = []
 
     # iter over the test dataset
-    for index, row in test_dataset.iterrows():
+    for index, row in tqdm(test_dataset.iterrows(), desc="test dataset"):
         image_path = row["image_path"]
         true_label = row["label_index"]
 

@@ -143,7 +143,7 @@ if __name__ == '__main__':
     sns.boxplot(data=df_results_correct, x="DEG")
     plt.xticks(rotation=45)
     plt.title('DEG distribution classification', fontsize=12)
-    plt.savefig(os.path.join(dir_result, "plot_bad_classification.png"))
+    plt.savefig(os.path.join(dir_result, "plot_right_classification.png"))
 
 
     ## Check deg distribution over the error classification

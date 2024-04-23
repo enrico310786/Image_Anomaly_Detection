@@ -115,4 +115,4 @@ show_image_list(list_images=[np.array(img_train), np.array(img_val), np.array(im
                 figsize=(20, 10),
                 grid=False,
                 title_fontsize=20,
-                path_image="/home/enrico/Projects/Image_Anomaly_Detection/data/examples_images.png")
+                path_image="/home/enrico/Projects/Image_Anomaly_Detection/resources/examples_images.png")

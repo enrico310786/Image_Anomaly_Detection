@@ -1,0 +1,25 @@
+----------------------------------------------------------------------
+CATEGORY:  four_up
+Example: four_up_45 - Number of images: 451
+Example: four_up_30 - Number of images: 352
+Example: four_up_60 - Number of images: 306
+Example: four_up - Number of images: 2385
+----------------------------------------------------------------------
+CATEGORY:  two_up
+Example: two_up_45 - Number of images: 690
+Example: two_up - Number of images: 2218
+Example: two_up_60 - Number of images: 255
+Example: two_up_30 - Number of images: 312
+----------------------------------------------------------------------
+CATEGORY:  three_up
+Example: three_up_30 - Number of images: 236
+Example: three_up - Number of images: 2311
+Example: three_up_60 - Number of images: 276
+Example: three_up_45 - Number of images: 462
+----------------------------------------------------------------------
+CATEGORY:  one_up
+Example: one_up_45 - Number of images: 659
+Example: one_up - Number of images: 2077
+Example: one_up_30 - Number of images: 259
+Example: one_up_60 - Number of images: 298
+----------------------------------------------------------------------

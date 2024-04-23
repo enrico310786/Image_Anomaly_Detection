@@ -98,7 +98,7 @@ show_image_list(list_images=[np.array(img_train_0), np.array(img_train_1), np.ar
                 figsize=(20, 10),
                 grid=False,
                 title_fontsize=20,
-                path_image="/home/enrico/Projects/Image_Anomaly_Detection/data/augment_train_image_examples.png")
+                path_image="/home/enrico/Projects/Image_Anomaly_Detection/resources/augment_train_image_examples.png")
 
 show_image_list(list_images=[np.array(img_val_0), np.array(img_val_1), np.array(img_val_2), np.array(img_val_3), np.array(img_val_4), np.array(img_val_5)],
                 list_titles=['img_0', 'img_1', 'img_2', 'img_3', 'img_4','img_5'],
@@ -106,4 +106,4 @@ show_image_list(list_images=[np.array(img_val_0), np.array(img_val_1), np.array(
                 figsize=(20, 10),
                 grid=False,
                 title_fontsize=20,
-                path_image="/home/enrico/Projects/Image_Anomaly_Detection/data/augment_val_image_examples.png")
+                path_image="/home/enrico/Projects/Image_Anomaly_Detection/resources/augment_val_image_examples.png")

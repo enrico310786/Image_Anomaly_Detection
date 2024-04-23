@@ -1,6 +1,6 @@
 import yaml
 import matplotlib.pyplot as plt
-
+import numpy as np
 
 def img_is_color(img):
     if len(img.shape) == 3:

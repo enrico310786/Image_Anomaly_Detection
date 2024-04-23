@@ -19,4 +19,4 @@ python train_anomalib/train_efficientAD_anomalib.py --dataset_root /home/randell
 
 ### Test
 
- python infer_anomalib/test_model.py --path_torch_model /home/enrico/Dataset/images_anomaly/results/Patchcore/one_up/v0/weights/torch/model.pt --path_dataset /home/enrico/Dataset/images_anomaly/dataset_lego/images_lego_256/one_up --name one_up --dir_result /home/enrico/Dataset/images_anomaly/results/Patchcore/one_up/v0 
+python infer_anomalib/test_model.py --path_torch_model /home/randellini/Image_Anomaly_Detection/results/Patchcore/one_up/v0/weights/torch/model.pt --path_dataset /home/randellini/Image_Anomaly_Detection/dataset/images_lego_256/one_up --name one_up --dir_result /home/randellini/Image_Anomaly_Detection/results/Patchcore/one_up/v0

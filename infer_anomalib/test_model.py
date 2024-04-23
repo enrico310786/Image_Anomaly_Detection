@@ -140,7 +140,7 @@ if __name__ == '__main__':
     df_results_correct = df_results[df_results["TRUE_CATEGORY"] == df_results["PRED_CATEGORY"]]
     # boxplot
     plt.figure(figsize=(15, 15))
-    sns.boxplot(data=df_results_correct, x="DEG")
+    sns.boxplot(data=df_results_correct, x="DEG", y="PRED_SCORE")
     plt.xticks(rotation=45)
     plt.title('DEG distribution classification', fontsize=12)
     plt.savefig(os.path.join(dir_result, "plot_right_classification.png"))

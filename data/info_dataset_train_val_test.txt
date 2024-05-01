@@ -1,0 +1,79 @@
+/home/enrico/Projects/Image_Anomaly_Detection/venv/bin/python /home/enrico/Projects/Image_Anomaly_Detection/data/inspect_FolderDataModule.py
+dict_keys(['image_path', 'label', 'image']) torch.Size([32, 3, 256, 256])
+data_train['image_path'][0]: /home/enrico/Dataset/images_anomaly/dataset_lego/images_lego_256/one_up/90_DEG/frame_2253.jpg - data_train['image'][0].shape: torch.Size([3, 256, 256]) - data_train['label'][0]: 0 - torch.max(data_train['image][0]): 0.9764706492424011 - torch.min(data_train['image][0]): 0.0
+data_val['image_path'][0]: /home/enrico/Dataset/images_anomaly/dataset_lego/images_lego_256/one_up/90_DEG/frame_1000.jpg - data_val['image'][0].shape: torch.Size([3, 256, 256]) - data_val['label'][0]: 0
+data_test['image_path'][0]: /home/enrico/Dataset/images_anomaly/dataset_lego/images_lego_256/one_up/90_DEG/frame_1003.jpg - data_test['image'][0].shape: torch.Size([3, 256, 256]) - data_test['label'][0]: 0
+train_dataset.head()
+            label  label_index
+0  DirType.NORMAL            0
+1  DirType.NORMAL            0
+2  DirType.NORMAL            0
+3  DirType.NORMAL            0
+4  DirType.NORMAL            0
+TRAIN DATASET FEATURES
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 2911 entries, 0 to 2910
+Data columns (total 5 columns):
+ #   Column       Non-Null Count  Dtype
+---  ------       --------------  -----
+ 0   image_path   2911 non-null   object
+ 1   label        2911 non-null   object
+ 2   label_index  2911 non-null   Int64
+ 3   mask_path    2911 non-null   object
+ 4   split        2911 non-null   object
+dtypes: Int64(1), object(4)
+memory usage: 116.7+ KB
+None
+
+IMAGE DISTRIBUTION BY CLASS
+
+label
+DirType.NORMAL    2911
+Name: count, dtype: int64
+----------------------------------------------------------
+TEST DATASET FEATURES
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1808 entries, 0 to 1807
+Data columns (total 5 columns):
+ #   Column       Non-Null Count  Dtype
+---  ------       --------------  -----
+ 0   image_path   1808 non-null   object
+ 1   label        1808 non-null   object
+ 2   label_index  1808 non-null   Int64
+ 3   mask_path    1808 non-null   object
+ 4   split        1808 non-null   object
+dtypes: Int64(1), object(4)
+memory usage: 72.5+ KB
+None
+
+IMAGE DISTRIBUTION BY CLASS
+
+label
+DirType.ABNORMAL    1444
+DirType.NORMAL       364
+Name: count, dtype: int64
+----------------------------------------------------------
+VAL DATASET FEATURES
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1806 entries, 0 to 1805
+Data columns (total 5 columns):
+ #   Column       Non-Null Count  Dtype
+---  ------       --------------  -----
+ 0   image_path   1806 non-null   object
+ 1   label        1806 non-null   object
+ 2   label_index  1806 non-null   Int64
+ 3   mask_path    1806 non-null   object
+ 4   split        1806 non-null   object
+dtypes: Int64(1), object(4)
+memory usage: 72.4+ KB
+None
+
+IMAGE DISTRIBUTION BY CLASS
+
+label
+DirType.ABNORMAL    1443
+DirType.NORMAL       363
+Name: count, dtype: int64
+Warning: Ignoring XDG_SESSION_TYPE=wayland on Gnome. Use QT_QPA_PLATFORM=wayland to run on Wayland anyway.
+
+Process finished with exit code 0

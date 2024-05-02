@@ -1,9 +1,6 @@
 import numpy as np
-from PIL import Image
 from anomalib.data.utils import ValSplitMode
-from torchvision.transforms.v2 import Resize
 from torchvision.transforms.v2.functional import to_pil_image
-import matplotlib.pyplot as plt
 from anomalib.data.image.folder import Folder
 from anomalib import TaskType
 import os
@@ -14,9 +11,6 @@ from utils import show_image_list
 # set the dataset root for a particular category
 dataset_root = "/home/enrico/Dataset/images_anomaly/dataset_lego/images_lego_256/one_up"
 
-# set the transformation
-image_size = (256, 256)
-transform = Resize(image_size, antialias=True)
 
 '''
 val_split_mode (ValSplitMode): Setting that determines how the validation subset is obtained.
@@ -27,6 +21,7 @@ val_split_ratio (float): Fraction of train or test images that will be reserved 
 By default the validation set is created from the test set -> this is controlled by val_split_mode=ValSplitMode.FROM_TEST
 The fraction of test data used to build the validation data is set by the parameter val_split_ratio uqual to 0.5 by dedfault
 '''
+
 # Create the datamodule
 datamodule = Folder(
     name="one_up",
@@ -37,6 +32,8 @@ datamodule = Folder(
     seed=42,
     val_split_mode=ValSplitMode.FROM_TEST, # default value
     val_split_ratio=0.5, # default value
+    train_batch_size=32, # default value
+    eval_batch_size=32, # default value
     #image_size=(512,512)
 )
 
@@ -64,14 +61,14 @@ img_train = to_pil_image(data_train["image"][0].clone())
 # val images
 i, data_val = next(enumerate(datamodule.val_dataloader()))
 # for each key extract the first image
-print("data_val['image_path'][100]: {} - data_val['image'][100].shape: {} - data_val['label'][100]: {}".format(data_val['image_path'][10], data_val['image'][10].shape, data_val['label'][10]))
-img_val = to_pil_image(data_val["image"][1].clone())
+print("data_val['image_path'][0]: {} - data_val['image'][0].shape: {} - data_val['label'][0]: {}".format(data_val['image_path'][0], data_val['image'][0].shape, data_val['label'][0]))
+img_val = to_pil_image(data_val["image"][0].clone())
 
 
 # test images
 i, data_test = next(enumerate(datamodule.test_dataloader()))
 # for each key extract the first image
-print("data_test['image_path'][100]: {} - data_test['image'][100].shape: {} - data_test['label'][100]: {}".format(data_test['image_path'][10], data_test['image'][10].shape, data_test['label'][10]))
+print("data_test['image_path'][0]: {} - data_test['image'][0].shape: {} - data_test['label'][0]: {}".format(data_test['image_path'][0], data_test['image'][0].shape, data_test['label'][0]))
 img_test = to_pil_image(data_test["image"][0].clone())
 
 

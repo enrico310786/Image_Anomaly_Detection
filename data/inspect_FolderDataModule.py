@@ -9,7 +9,7 @@ import torch
 from utils import show_image_list
 
 # set the dataset root for a particular category
-dataset_root = "/home/enrico/Dataset/images_anomaly/dataset_lego/images_lego_256/one_up"
+dataset_root = "/home/enrico/Projects/Image_Anomaly_Detection/dataset/images_lego_256/one_up"
 
 
 '''

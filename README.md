@@ -7,6 +7,9 @@ Here the link to the original project
 
 https://github.com/openvinotoolkit/anomalib
 
+You can also read the following story on Medium related to the use of Anomalib
+
+https://medium.com/@enrico.randellini/anomalib-a-library-for-image-anomaly-detection-and-localization-fb363639104f
 
 ## Installation
 

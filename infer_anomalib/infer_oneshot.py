@@ -36,7 +36,7 @@ if __name__ == '__main__':
 
     result = inferencer.predict(image=image)
 
-    print("inferencer.metadata", inferencer.metadata)
+    #print("inferencer.metadata", inferencer.metadata)
     print("pred_score: {:.4f} - pred_label: {}".format(result.pred_score, result.pred_label))
 
     # result.pred_score gives the score to be anomalous
@@ -45,7 +45,6 @@ if __name__ == '__main__':
         print("Normal - pred_score: {:.4f}".format(normal_score))
     else:
         print("Abnormal - pred_score: {:.4f}".format(result.pred_score))
-
 
     image_bbox = result.image.copy()
     # Find the contours of the white mask

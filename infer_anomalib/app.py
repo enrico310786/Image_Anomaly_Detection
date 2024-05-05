@@ -7,14 +7,13 @@ from torch import as_tensor
 from torchvision.transforms.v2.functional import to_dtype, to_image
 import torch
 
-#font = cv2.FONT_HERSHEY_SIMPLEX
 font = cv2.FONT_ITALIC
 
 
 def predict(image):
     result = inferencer.predict(image=image)
 
-    print("inferencer.metadata", inferencer.metadata)
+    #print("inferencer.metadata", inferencer.metadata)
     print("pred_score: {:.4f} - pred_label: {}".format(result.pred_score, result.pred_label))
     original_image = result.image.copy()
 
